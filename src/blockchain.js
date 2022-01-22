@@ -103,7 +103,7 @@ class Blockchain {
      */
     requestMessageOwnershipVerification(address) {
         return new Promise((resolve) => {
-            let toVerify = address + ':' + new Date().getTime().toString().slice(0,-3) + ':starRegistry';
+            let toVerify = address + ':' + new Date().getTime().toString() + ':starRegistry';
             resolve(toVerify);
         });
     }
@@ -127,11 +127,11 @@ class Blockchain {
      */
     submitStar(address, message, signature, star) {
         let self = this;
-        const maxTime = 5*3600*1000; 
+        const maxTime = 5*60*1000; 
 
         return new Promise(async (resolve, reject) => {
             let messageTime = parseInt(message.split(':')[1]);
-            let currentTime = parseInt(new Date().getTime().toString().slice(0,-3));
+            let currentTime = parseInt(new Date().getTime().toString());
 
             if (maxTime >= currentTime - messageTime){
                 if (bitcoinMessage.verify(message,address,signature)){
@@ -156,7 +156,7 @@ class Blockchain {
     getBlockByHash(hash) {
         let self = this;
         return new Promise((resolve, reject) => {
-            let block = self.chain.filter(p => p.hash === hash)[0];
+            let block = self.chain.find(p => p.height === height);
             if(block){
                 resolve(block);
             } else {
@@ -173,7 +173,7 @@ class Blockchain {
     getBlockByHeight(height) {
         let self = this;
         return new Promise((resolve, reject) => {
-            let block = self.chain.filter(p => p.height === height)[0];
+            let block = self.chain.find(p => p.height === height);
             if(block){
                 resolve(block);
             } else {
