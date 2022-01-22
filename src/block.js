@@ -80,7 +80,6 @@ class Block {
         // Resolve with the data if the object isn't the Genesis block
         return new Promise((resolve,reject) => {
             if (self.height > 0) {
-                console.log(bData);
                 resolve(bData);
                 
             }else{

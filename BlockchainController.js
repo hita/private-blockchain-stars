@@ -126,7 +126,6 @@ class BlockchainController {
     //This Endpoint returns the chain validation
     getChainValidation(){
         this.app.get("/validateChain/", async (req, res) => {
-            console.log("called upon")
             let errorLog = await this.blockchain.validateChain();
             return res.status(200).json(errorLog);   
         });

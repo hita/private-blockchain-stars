@@ -36,7 +36,7 @@ class Blockchain {
     async initializeChain() {
         if( this.height === -1){
             let block = new BlockClass.Block({data: 'Genesis Block'});
-            await this._addBlock(block);
+            await this._addBlock(block).then( ()=>{}, e => { console.log(e) });
         }
     }
 
@@ -83,6 +83,11 @@ class Blockchain {
             self.height++;
             self.chain.push(currentBlock);
 
+            let errorLog = await this.validateChain().then( ()=>{}, e => { reject(e) })
+            if (errorLog && errorLog.length > 1) {
+                reject(errorLog);
+            }
+
             resolve(currentBlock);
         });
     }
@@ -122,7 +127,7 @@ class Blockchain {
      */
     submitStar(address, message, signature, star) {
         let self = this;
-        const maxTime = 5*60*1000; 
+        const maxTime = 5*3600*1000; 
 
         return new Promise(async (resolve, reject) => {
             let messageTime = parseInt(message.split(':')[1]);
@@ -130,7 +135,7 @@ class Blockchain {
 
             if (maxTime >= currentTime - messageTime){
                 if (bitcoinMessage.verify(message,address,signature)){
-                    console.log(`testing the ${address}`);
+            
                     let newBlock = new BlockClass.Block({owner: address, star: star});
                     resolve(await self._addBlock(newBlock));
                 } else { 
@@ -223,7 +228,7 @@ class Blockchain {
             });
 
             if (errorLog.length == 0) {
-                errorLog.push("The chain is valid");
+                console.log("no errors in the chain");
             }
             resolve(errorLog);
         });
