@@ -78,7 +78,7 @@ class Blockchain {
                currentBlock.previousBlockHash = previousBlock.hash;    
             }
 
-            currentBlock.time = new Date().getTime().toString().slice(0,-3);
+            currentBlock.time = new Date().getTime().toString();
             currentBlock.hash = SHA256(JSON.stringify(currentBlock)).toString();
             self.height++;
             self.chain.push(currentBlock);
@@ -137,7 +137,8 @@ class Blockchain {
                 if (bitcoinMessage.verify(message,address,signature)){
             
                     let newBlock = new BlockClass.Block({owner: address, star: star});
-                    resolve(await self._addBlock(newBlock));
+
+                   await self._addBlock(newBlock).then( success=>{ resolve(success) }, e => { console.log(e) });
                 } else { 
                     reject(Error(`Message could not be verified`));
                 }
@@ -221,7 +222,7 @@ class Blockchain {
                 }
                 
                 //Check if the chain is consistent by previous hash continuity
-                if (block.height > 0 && block.previousBlock !== self.chain[block.height-1].hash){
+                if (block.height > 0 && block.previousBlockHash !== self.chain[block.height-1].hash){
                     errorLog.push({block: block, error: "previous hash does not match"});
                 }     
             
