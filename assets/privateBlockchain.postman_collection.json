@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "ba2bed63-7d35-40ef-b7e6-0cd95fba280a",
+		"name": "privateBlockchain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Genesis Block",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/block/height/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"block",
+						"height",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Validation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "address",
+							"value": "tb1q9x83vjd4d35ghtfg64xpql5ye38lcdxf76tn7v",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/requestvalidation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"requestvalidation"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Star",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"address\": \"mjKcKFX2pPGgPLp1xRubYgzGLWuNv1aRps\",\r\n    \"signature\": \"H0QphdwgXYTzHnJR9e5Fybv1jNynhqmXyUAxWfmW6yOFaZPyWJUqzBOeU8sZ6h4jo19LpwGFETc/wBmFyE/0sqY=\"   ,\r\n    \"message\": \"mjKcKFX2pPGgPLp1xRubYgzGLWuNv1aRps:1642848749:starRegistry\",\r\n    \"star\": {\r\n        \"dec\":  \"69° 52' 56.88\",\r\n        \"ra\":   \"16h 28m 1.1s\",\r\n        \"story\": \"Testing the user story\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/submitstar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"submitstar"
+					],
+					"query": [
+						{
+							"key": "address",
+							"value": "tb1q9x83vjd4d35ghtfg64xpql5ye38lcdxf76tn7v",
+							"description": "tb1qedjp3dawjht5rre5dwk98cgz5zhpskaqqv5syj",
+							"disabled": true
+						},
+						{
+							"key": "message",
+							"value": "this",
+							"description": "tb1q9x83vjd4d35ghtfg64xpql5ye38lcdxf76tn7v",
+							"disabled": true
+						},
+						{
+							"key": "signature",
+							"value": "test",
+							"description": "tb1qcxcr7mm378a29tlu9h9apuxrvkkcy0t6yvtrm8",
+							"disabled": true
+						},
+						{
+							"key": "star",
+							"value": "mystar",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve stars by owner address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/blocks/mjKcKFX2pPGgPLp1xRubYgzGLWuNv1aRps",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"blocks",
+						"mjKcKFX2pPGgPLp1xRubYgzGLWuNv1aRps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validateChain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/validateChain",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"validateChain"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
