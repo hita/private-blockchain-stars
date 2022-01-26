@@ -83,7 +83,7 @@ class Blockchain {
             self.height++;
             self.chain.push(currentBlock);
 
-            let errorLog = await this.validateChain().then( ()=>{}, e => { reject(e) })
+            let errorLog = this.validateChain().then( ()=>{}, e => { reject(e) })
             if (errorLog && errorLog.length > 1) {
                 reject(errorLog);
             }
@@ -194,7 +194,7 @@ class Blockchain {
         let stars = [];
         return new Promise((resolve, reject) => {
 
-            self.chain.forEach( async(block) => {
+            self.chain.forEach( async block => {
                 
                 let bData = await block.getBData();
                 if (bData && bData.owner === address){
